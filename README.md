@@ -1,2 +1,3 @@
 Bancosito
-Bancosito Incorporated - Proyecto de Homebanking para Minhub JAVA
+
+Grupo Bancosito Incorporated - Proyecto de Homebanking para Minhub JAVA
