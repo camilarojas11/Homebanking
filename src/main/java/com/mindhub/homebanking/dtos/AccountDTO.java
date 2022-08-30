@@ -2,14 +2,15 @@ package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.Account;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AccountDTO {
-    private long id;
+    private Long id;
     private String number;
-    private Date creationDate;
+    private LocalDateTime creationDate;
     private Double balance;
     private Set<TransactionDTO> transactions;
 
@@ -18,23 +19,16 @@ public class AccountDTO {
         this.number = account.getNumber();
         this.creationDate = account.getCreationDate();
         this.balance = account.getBalance();
-        this.transactions = account.getTransaction().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toSet());
+        this.transactions = account.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toSet());
     }
     //Puedo incorporar más atributos aunque no estén en Account. El mapeo permite traer las trans en cada iteraccion
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Set<TransactionDTO> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(Set<TransactionDTO> transactions) {
-        this.transactions = transactions;
     }
 
     public String getNumber() {
@@ -45,11 +39,11 @@ public class AccountDTO {
         this.number = number;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -59,5 +53,13 @@ public class AccountDTO {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public Set<TransactionDTO> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<TransactionDTO> transactions) {
+        this.transactions = transactions;
     }
 }

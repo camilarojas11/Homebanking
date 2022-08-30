@@ -59,7 +59,7 @@ public class LoanServiceImpl implements LoanServices {
         //El cliente que solicita el prestamo es ClienLoan, representa al prestamo ya solicitado:
         ClientLoan clientLoanCreated = new ClientLoan(loanAplicationDTO.getAmount() + (loanAplicationDTO.getAmount() * 0.2), loanAplicationDTO.getPayments(), clientConnected, typeLoan);
         //Transferimos el prestamo con Transaction: (SIN EL 20%, porque este es el prestamo realmente recibido no lo que yo tengo que pagar despues con intereses)
-        Transaction transactionDestiny = new Transaction(TransactionType.CREDIT, loanAplicationDTO.getAmount(), loanAplicationDTO.getLoanId() + "Loan Approved", new Date(), accountDestiny); //datos de la transaccion que acabamos de hacer, tomando los datos de clientloanapplication (lo que el usuario fue poniendo en el formulario)
+        Transaction transactionDestiny = new Transaction(TransactionType.CREDIT, loanAplicationDTO.getAmount(), typeLoan.getName() + "- Loan Approved", accountDestiny); //datos de la transaccion que acabamos de hacer, tomando los datos de clientloanapplication (lo que el usuario fue poniendo en el formulario)
         transactionRepository.save(transactionDestiny);
 
 

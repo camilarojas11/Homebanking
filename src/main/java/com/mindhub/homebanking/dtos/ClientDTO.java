@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ClientDTO {
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -26,32 +26,16 @@ public class ClientDTO {
         this.firstName = client.getFirstName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
-        this.accounts = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+        this.accounts = client.getAccounts().stream().map(AccountDTO::new).collect(Collectors.toSet());
         this.loans= client.getClientLoans().stream().map(ClientLoanDTO::new).collect(Collectors.toSet());
         this.cards = client.getCards().stream().map(CardDTO::new).collect(Collectors.toSet());
     }
 
-    public Set<CardDTO> getCards() {
-        return cards;
-    }
-
-    public void setCards(Set<CardDTO> cards) {
-        this.cards = cards;
-    }
-
-    public Set<ClientLoanDTO> getLoans() {
-        return loans;
-    }
-
-    public void setLoans(Set<ClientLoanDTO> loans) {
-        this.loans = loans;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -87,5 +71,19 @@ public class ClientDTO {
         this.accounts = accounts;
     }
 
+    public Set<ClientLoanDTO> getLoans() {
+        return loans;
+    }
 
+    public void setLoans(Set<ClientLoanDTO> loans) {
+        this.loans = loans;
+    }
+
+    public Set<CardDTO> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<CardDTO> cards) {
+        this.cards = cards;
+    }
 }

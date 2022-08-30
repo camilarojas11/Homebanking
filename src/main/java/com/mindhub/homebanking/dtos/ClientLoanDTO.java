@@ -4,13 +4,9 @@ import com.mindhub.homebanking.models.ClientLoan;
 
 public class ClientLoanDTO {
     private Long id;
-
     private Long loanId;
-
     private String name;
-
-    private double amount;
-
+    private Double amount;
     private int payments;
 
         public ClientLoanDTO(ClientLoan clientLoan) {
@@ -45,11 +41,11 @@ public class ClientLoanDTO {
         this.name = name;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

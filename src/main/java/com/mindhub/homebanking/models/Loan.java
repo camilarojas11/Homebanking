@@ -12,7 +12,7 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private long id;
+    private Long id;
     private String name;
     private Double maxAmount;
     @ElementCollection //Le indica a SpringBoot que va a ser un listado y lo genera automat. Crea la entidad con las opciones de pago sin la necesidad de crear yo la entidad con estos datos
@@ -30,11 +30,11 @@ public class Loan {
         this.payments = payments;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,17 +61,23 @@ public class Loan {
     public void setPayments(List<Integer> payments) {
         this.payments = payments;
     }
+
     public Set<ClientLoan> getClientLoans() {
         return clientLoans;
     }
 
-    @Override
-    public String toString() {
-        return "Loan" +
-                "id=" + id +
-                ", name=" + name +
-                ", amount=" + maxAmount +
-                ", payments='" +  payments+ '\'';
+    public void setClientLoans(Set<ClientLoan> clientLoans) {
+        this.clientLoans = clientLoans;
     }
 
+    @Override
+    public String toString() {
+        return "Loan{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", maxAmount=" + maxAmount +
+                ", payments=" + payments +
+                ", clientLoans=" + clientLoans +
+                '}';
+    }
 }

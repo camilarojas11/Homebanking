@@ -2,11 +2,11 @@ package com.mindhub.homebanking.dtos;
 //DTO PARA RECIBIR EL OBJETO QUE VIENE POR FRONTEND
 public class LoanAplicationDTO {
     private Long loanId;
-    private double amount;
+    private Double amount;
     private int payments;
     private String toAccountNumber;
 
-    public LoanAplicationDTO(Long loanId, double amount, int payments, String toAccountNumber) {
+    public LoanAplicationDTO(Long loanId, Double amount, int payments, String toAccountNumber) {
         this.loanId = loanId;
         this.amount = amount;
         this.payments = payments;
@@ -21,11 +21,11 @@ public class LoanAplicationDTO {
         this.loanId = loanId;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

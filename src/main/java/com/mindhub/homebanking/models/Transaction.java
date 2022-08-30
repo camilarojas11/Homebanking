@@ -3,6 +3,7 @@ package com.mindhub.homebanking.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -11,11 +12,11 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private long id;
+    private Long id;
     private TransactionType type;
     private Double amount;
     private String description;
-    private Date creationDate;
+    private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
@@ -24,21 +25,19 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, Double amount, String description, Date creationDate, Account account) {
-        this.id = id;
+    public Transaction(TransactionType type, Double amount, String description, Account account) {
         this.type = type;
         this.amount = amount;
         this.description = description;
-        this.creationDate = creationDate;
+        this.date = LocalDateTime.now();
         this.account = account;
     }
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,12 +65,12 @@ public class Transaction {
         this.description = description;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public Account getAccount() {
@@ -82,6 +81,7 @@ public class Transaction {
         this.account = account;
     }
 
+
     @Override
     public String toString() {
         return "Transaction" +
@@ -89,7 +89,7 @@ public class Transaction {
                 ", type=" + type +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
-                ", creationDate=" + creationDate +
+                ", date=" + date +
                 ", account=" + account +
                 '}';
     }

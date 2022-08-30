@@ -6,6 +6,7 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.ClientServices;
+import com.mindhub.homebanking.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,34 +63,23 @@ public class ClientServiceImpl implements ClientServices {
     @Override
     public ResponseEntity<Object> register(String firstName, String lastName, String email, String password) {
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-
         }
-
-
 
         if (clientRepository.findByEmail(email) !=  null) {
-
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
-
         }
-
-
 
         Client client1 = new Client (firstName, lastName, email, passwordEncoder.encode(password));
         clientRepository.save(client1);
 
-        String numero = ((Integer)getRandomAccount(10000001, 100000000)).toString(); //lo pasamos a Integer que posee el metodo toString para poder pasarlo a String
+        Account account = new Account("VIN-" + AccountUtils.createAccountNumber(10000000, 100000001), LocalDateTime.now(),
+                0.0, client1);
 
-        Account account = new Account("VIN" + numero, new Date(), 0.0, client1);
         accountRepository.save(account);
 
         return new ResponseEntity<>(HttpStatus.CREATED); //si pasó los anteriores requisitos, lo crea, lo guarda y envia un mensaje 201 creado
 
-    }
-    public int getRandomAccount(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
     }
 
 }

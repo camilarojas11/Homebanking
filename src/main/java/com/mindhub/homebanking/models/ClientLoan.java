@@ -10,9 +10,9 @@ public class ClientLoan {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO, generator = "native")
     @GenericGenerator(name= "native", strategy = "native")
-    private long id;
+    private Long id;
     private Double amount;
-    private int payments; //ya lo eligió antes
+    private int payments; //solo quiero traer un valor, no la lista entera
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
     private Client client;
@@ -20,22 +20,21 @@ public class ClientLoan {
     @JoinColumn(name="loan_id")
     private Loan loan;
 
-    public ClientLoan( Double amount, int payments, Client client, Loan loan) {
+    public ClientLoan() {
+    }
+
+    public ClientLoan(Double amount, int payments, Client client, Loan loan) {
         this.amount = amount;
         this.payments = payments;
         this.client = client;
         this.loan = loan;
     }
 
-    public ClientLoan() {
-
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,5 +68,16 @@ public class ClientLoan {
 
     public void setLoan(Loan loan) {
         this.loan = loan;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientLoan{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", payments=" + payments +
+                ", client=" + client +
+                ", loan=" + loan +
+                '}';
     }
 }

@@ -14,7 +14,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
     //@Column(unique = true)
@@ -42,43 +42,12 @@ public class Client {
 
     }
 
-    public String getPassword() {
-        return password;
+    public Long getId() {
+        return id;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Card> getCards() {
-        return cards;
-    }
-
-    public void setCards(Set<Card> cards) {
-        this.cards = cards;
-    }
-
-    /**
-     * Descripción: Nos permite traer los datos de préstamos de cada cliente
-     * @return Este metodo retorna una colección de tipo Set de Loans
-     */
-/*
-    public Set<Loan> getLoans(){
-        return clientLoans.stream().map(clientLoan -> clientLoan.getLoan()).collect(Collectors.toSet()); //map para mutarlos objetos sobre los q itera
-    } //no permite repetidos y los ordena / getloans obtiene los prestamos
-*/
-
-
-    public void setAccounts(Set<Account> accounts) { //void no devuelve nada, no tiene return, solo obtiene datos
-        this.accounts = accounts;
-    }
-
-    public Set<ClientLoan> getClientLoans() {
-        return clientLoans;
-    }
-
-    public void setClientLoans(Set<ClientLoan> clientLoans) {
-        this.clientLoans = clientLoans;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -105,30 +74,54 @@ public class Client {
         this.email = email;
     }
 
-    public long getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<Account> getAccounts() {
         return accounts;
     }
-    /*
-    public void addAccount(Account account) {
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public Set<ClientLoan> getClientLoans() {
+        return clientLoans;
+    }
+
+    public void setClientLoans(Set<ClientLoan> clientLoans) {
+        this.clientLoans = clientLoans;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
+    public void addAccount(Account account){
         account.setClient(this);
         accounts.add(account);
     }
-        (no hace falta este bloque porque tenemos el client en el constructor, si queremos dejarlo debemos borrar el client del constructor de account)
-
-     */
-
 
     @Override
     public String toString() {
-        return "El cliente " + firstName + " " + lastName + " " + email;
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", accounts=" + accounts +
+                ", clientLoans=" + clientLoans +
+                ", cards=" + cards +
+                '}';
     }
-
 }

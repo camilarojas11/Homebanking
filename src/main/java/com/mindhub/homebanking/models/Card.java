@@ -11,42 +11,30 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Long id;
-    private CardColor color;
+    private String cardHolder;
     private CardType type;
+    private CardColor color;
     private String number;
     private int cvv;
-    private LocalDate thruDate;
     private LocalDate fromDate;
+    private LocalDate thruDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
-    private Client client; //Acá agrego el "cardHolder" que pedía la consiga. Así, agrego el client como un parametro más que traigo
-    // de la entidad cliente y lo voy a crear directamente linkeando el client1 o client2 con la tarjeta, siendo un parametro más de este obj. Card.
-    // del constructor cuando hago el new object.  Otra forma de hacerlo sería hacer el método add directamente en Client y luego en HomeBancking lo linkeo con los métodos client1.addCard(card1).
+    private Client client;
 
     public Card() {
     }
 
 
-    public Card(CardColor color, CardType type, String number, int cvv, Client client) {
-        this.color = color;
+    public Card(String cardHolder, CardType type, CardColor color, String number, int cvv, LocalDate fromDate, LocalDate thruDate, Client client) {
+        this.cardHolder = cardHolder;
         this.type = type;
+        this.color = color;
         this.number = number;
         this.cvv = cvv;
-        this.thruDate = calcularFechaVencimiento();
-        this.fromDate = LocalDate.now();
-        this.client = client;
-
-    }
-
-    private LocalDate calcularFechaVencimiento(){
-      return  LocalDate.now().plusYears(5);
-    }
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
+        this.fromDate = fromDate;
+        this.thruDate = thruDate;
         this.client = client;
     }
 
@@ -58,13 +46,12 @@ public class Card {
         this.id = id;
     }
 
-
-    public CardColor getColor() {
-        return color;
+    public String getCardHolder() {
+        return cardHolder;
     }
 
-    public void setColor(CardColor color) {
-        this.color = color;
+    public void setCardHolder(String cardHolder) {
+        this.cardHolder = cardHolder;
     }
 
     public CardType getType() {
@@ -73,6 +60,14 @@ public class Card {
 
     public void setType(CardType type) {
         this.type = type;
+    }
+
+    public CardColor getColor() {
+        return color;
+    }
+
+    public void setColor(CardColor color) {
+        this.color = color;
     }
 
     public String getNumber() {
@@ -91,6 +86,14 @@ public class Card {
         this.cvv = cvv;
     }
 
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
+    }
+
     public LocalDate getThruDate() {
         return thruDate;
     }
@@ -99,12 +102,28 @@ public class Card {
         this.thruDate = thruDate;
     }
 
-    public LocalDate getFromDate() {
-        return fromDate;
+    public Client getClient() {
+        return client;
     }
 
-    public void setFromDate(LocalDate fromDate) {
-        this.fromDate = fromDate;
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", cardHolder='" + cardHolder + '\'' +
+                ", type=" + type +
+                ", color=" + color +
+                ", number='" + number + '\'' +
+                ", cvv=" + cvv +
+                ", fromDate=" + fromDate +
+                ", thruDate=" + thruDate +
+                ", client=" + client +
+                '}';
     }
 }
+
 

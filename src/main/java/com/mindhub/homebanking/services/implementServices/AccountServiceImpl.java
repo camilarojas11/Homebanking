@@ -6,12 +6,14 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountServices;
+import com.mindhub.homebanking.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -52,16 +54,11 @@ public class AccountServiceImpl implements AccountServices {
             return new ResponseEntity<>("Ya posees 3 cuentas", HttpStatus.FORBIDDEN); //NEW response entity te lleva al metodo constructor de la clase entity de java. Aca esta creando el objeto instanciado de entity con datos que se encuentran en su constructor (si ingreso voy a ver los http)
         }
 
-        String numero = ((Integer)getRandomAccount(10000001, 100000000)).toString(); //lo pasamos a Integer que posee el metodo toString para poder pasarlo a String
-
-        Account account = new Account("VIN" + numero, new Date(), 0.0, clientConnected); //con el boton de create del html me crea una cuenta automaticamente con los parametros pasados del objeto, y ademas lo asocia al cliente que esa conectado y autenticado en ese momento
+        Account account = new Account("VIN-" + AccountUtils.createAccountNumber(10000000, 100000001), LocalDateTime.now(), 0.00, clientConnected); //con el boton de create del html me crea una cuenta automaticamente con los parametros pasados del objeto, y ademas lo asocia al cliente que esa conectado y autenticado en ese momento
 
         accountRepository.save(account); //guardamos la cuenta creada
 
         return new ResponseEntity<>("Cuenta creada" ,HttpStatus.CREATED); //una vez guardada nos responde que esta creada con el http CREATED
     }
 
-    public int getRandomAccount(int min, int max) { //Creamos este metodo para pasar el numero random
-        return (int) ((Math.random() * (max - min)) + min);
-    }
 }

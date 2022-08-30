@@ -51,8 +51,8 @@ public class TransactionServiceImpl implements TransactionServices {
             return new ResponseEntity<>("La cuenta de origen no tiene el saldo disponible para esta transacción", HttpStatus.FORBIDDEN);
         }
 
-        Transaction transactionOrigin=new Transaction(TransactionType.DEBIT,-amount,toAccountNumber+" "+description,new Date(), accountOrigin);
-        Transaction transactionDestiny=new Transaction(TransactionType.CREDIT,amount,fromAccountNumber+" "+description,new Date(), accountDestiny);
+        Transaction transactionOrigin=new Transaction(TransactionType.DEBIT,-amount,toAccountNumber+" - "+description, accountOrigin);
+        Transaction transactionDestiny=new Transaction(TransactionType.CREDIT,amount,fromAccountNumber+" - "+description, accountDestiny);
         transactionRepository.save(transactionOrigin);
         transactionRepository.save(transactionDestiny);
 
